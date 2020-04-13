@@ -1,19 +1,26 @@
-from Challenge3 import xor_check, freq_match_score
+from Challenge3 import xor_check, freq_match_score, score
 
 f=open("challenge4Data.txt", "r")
 contents = f.readlines()
-s = '\n'.join(contents)
 
-x = []
-for line in contents:
-	#L = line.encode().hex()
-	print(line)
-	x.append(xor_check(line)[0])
+def find_encrypted_string(contents) :
+	x = []
+	#print(contents)
+	print("DECODING")
+	for line in contents:
+		#L = line.encode().hex()
+		#print(xor_check(line))
 
-best_score = 0
-for line in x:
-	if freq_match_score(line) > best_score: 
-		best_score = freq_match_score(line)
-		english = line
-
-print(line)
+		x.append(xor_check(line))
+	print(x)
+	best_score = 10000
+	english = ""
+	for line in x:
+		if score(line) < best_score: 
+			best_score = score(line)
+			english = line
+	#print(f'line = {line}')
+	print("end")
+	print(x[169])
+	return english
+print(f'english = {find_encrypted_string(contents)}')

@@ -1,6 +1,7 @@
 from Challenge1 import hexdecode
 import codecs
 import binascii
+import string 
 
 #get rid of non-alphanmeric chars
 def strip(s) :
@@ -11,13 +12,19 @@ def strip(s) :
 	return new
 
 #returns hex from string input 
-def string_to_hex(string):
+def string_to_hex(string) :
 	return string.encode().hex()
 
-
+def string_to_bytes(string) :
+	return bytes.fromhex(string.encode().hex())
 
 #returns STRING utf-8 of xored hex strings
 def fixed_XOR(str1, str2) :
+	
+	if not all(c in string.hexdigits for c in str1) :
+		str1 = string_to_hex(str1)
+	if not all(c in string.hexdigits for c in str2) :
+		str2 = string_to_hex(str2)
 
 	A = bytes.fromhex(str1)
 	B = bytes.fromhex(str2)
